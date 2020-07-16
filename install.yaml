@@ -1,0 +1,117 @@
+- hosts: all
+  remote_user: root
+  become: yes
+  tasks:
+    - name: add user
+      become: true
+      user:
+        name: tomcat
+
+    - name: Set up multiple authorized keys
+      become: true
+      authorized_key:
+        user: tomcat
+        state: present
+        key: '{{ item }}'
+      with_file:
+        - anton.anikin.pub
+
+    - name: update all packages
+      yum:
+        name: '*' 
+        state: latest
+
+    - name: install openjdk
+      yum:
+        name: 
+          - ntp 
+          - ntpdate
+        state: latest
+
+    - name: Start service httpd, if not started
+      service:
+        name: ntpd
+        state: started
+
+    - name: install openjdk
+      yum:
+        name: 'java-11-openjdk.x86_64'
+        state: latest
+
+    - name: Install yum utils
+      yum:
+        name: yum-utils
+        state: latest
+
+    - name: Install device-mapper-persistent-data
+      yum:
+        name: device-mapper-persistent-data
+        state: latest
+
+    - name: Install lvm2
+      yum:
+        name: lvm2
+        state: latest
+
+    - name: Add Docker repo
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docer-ce.repo
+      become: yes       
+
+
+    - name: Enable Docker Edge repo
+      ini_file:
+        dest: /etc/yum.repos.d/docer-ce.repo
+        section: 'docker-ce-edge'
+        option: enabled
+        value: 0
+      become: yes
+
+    - name: Enable Docker Test repo
+      ini_file:
+        dest: /etc/yum.repos.d/docer-ce.repo
+        section: 'docker-ce-test'
+        option: enabled
+        value: 0
+      become: yes
+
+    - name: Install Docker
+      package:
+        name: docker-ce
+        state: latest
+      become: yes
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      become: yes      
+
+    - name: Add user tomcat to docker group
+      user:
+        name: tomcat
+        groups: docker
+        append: yes
+      become: yes
+
+    - name: Install Docker
+      package:
+        name: python3-pip
+        state: latest
+      become: yes
+
+
+    - name: Upgrade pip
+      pip:
+        name: pip
+        executable: pip3
+        state: latest
+        extra_args: "--upgrade"
+
+    - name: install docker-py
+      pip:
+        name: docker-py
+        state: latest
+      become: yes

@@ -53,6 +53,13 @@
         src: server.xml
         dest: /home/tomcat/apache-tomcat-9.0.37/conf/server.xml
 
+    - name: add saldo-api-logback.xml file
+      become_user: tomcat
+      become: yes
+      copy:
+        src: saldo-api-logback.xml
+        dest: /home/tomcat/saldo-api-logback.xml
+
     - name: Enable service tomcat, and not touch the state
       service:
         name: tomcat

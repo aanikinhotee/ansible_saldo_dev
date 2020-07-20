@@ -10,7 +10,7 @@ Environment=CATALINA_PID=/home/tomcat/apache-tomcat-9.0.37/temp/tomcat.pid
 Environment=CATALINA_HOME=/home/tomcat/apache-tomcat-9.0.37
 Environment=CATALINA_BASE=/home/tomcat/apache-tomcat-9.0.37
 Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
-Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom -Dsaldo.api.logging.config=/home/tomcat/saldo-api-logback.xml'
 
 ExecStart=/home/tomcat/apache-tomcat-9.0.37/bin/startup.sh
 ExecStop=/bin/kill -15 $MAINPID

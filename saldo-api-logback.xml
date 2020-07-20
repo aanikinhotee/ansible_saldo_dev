@@ -1,0 +1,53 @@
+<configuration>
+  <appender name="saldo-api-AUDIT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${catalina.home}/logs/saldo-api-audit.log</file>
+
+    <rollingPolicy
+        class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${catalina.home}/logs/saldo-api-audit.log%d{yyyy-MM-dd}.%i</fileNamePattern>
+      <maxFileSize>5MB</maxFileSize>
+      <maxHistory>5</maxHistory>
+      <totalSizeCap>100MB</totalSizeCap>
+    </rollingPolicy>
+
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} ip=%X{req.xForwardedFor}
+        requestUrl=%X{req.requestURL}
+        requestMethod=%X{req.method} queryString=%X{req.queryString} %m%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <appender name="saldo-api" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${catalina.home}/logs/saldo-api.log</file>
+
+    <rollingPolicy
+        class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>${catalina.home}/logs/saldo-api.log%d{yyyy-MM-dd}.%i</fileNamePattern>
+      <maxFileSize>5MB</maxFileSize>
+      <maxHistory>5</maxHistory>
+      <totalSizeCap>100MB</totalSizeCap>
+    </rollingPolicy>
+
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+
+  <root level="INFO">
+    <appender-ref ref="saldo-api"/>
+  </root>
+
+  <logger name="AUDIT" level="TRACE" additivity="false">
+    <appender-ref ref="saldo-api-AUDIT"/>
+  </logger>
+
+  <logger name="org.apache.catalina.startup.DigesterFactory" level="ERROR"/>
+  <logger name="org.apache.catalina.util.LifecycleBase" level="ERROR"/>
+  <logger name="org.apache.coyote.http11.Http11NioProtocol" level="WARN"/>
+  <logger name="org.apache.sshd" level="INFO"/>
+  <logger name="org.apache.sshd.common.util.SecurityUtils" level="WARN"/>
+  <logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"/>
+
+</configuration>

@@ -27,3 +27,38 @@
           - "keycloak-db:/opt/jboss/keycloak/standalone/data:rw"
       vars:
         ansible_python_interpreter: /usr/bin/python3
+
+    - name: Install tomcat
+      become_user: tomcat
+      become: yes
+      get_url:
+        url: https://downloads.apache.org/tomcat/tomcat-9/v9.0.37/bin/apache-tomcat-9.0.37.tar.gz
+        dest: /home/tomcat/apache-tomcat-9.0.37.tar.gz
+
+    - name: Extract /home/tomcat/apache-tomcat-9.0.37.tar.gz into /home/tomcat/apache-tomcat-9.0.37
+      become_user: tomcat
+      become: yes
+      unarchive:
+        src: /home/tomcat/apache-tomcat-9.0.37.tar.gz
+        dest: /home/tomcat/
+        remote_src: yes
+
+    - name: add tomcat.service file
+      copy:
+        src: tomcat.service
+        dest: /etc/systemd/system/tomcat.service
+
+    - name: add server.xml file
+      copy:
+        src: server.xml
+        dest: /home/tomcat/apache-tomcat-9.0.37/conf/server.xml
+
+    - name: Enable service tomcat, and not touch the state
+      service:
+        name: tomcat
+        enabled: yes
+
+    - name: Start tomcat httpd, if not started
+      service:
+        name: tomcat
+        state: started

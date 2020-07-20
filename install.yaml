@@ -15,16 +15,17 @@
         key: '{{ item }}'
       with_file:
         - anton.anikin.pub
+        - gitlab.tech.pub
 
     - name: update all packages
       yum:
-        name: '*' 
+        name: '*'
         state: latest
 
     - name: install openjdk
       yum:
-        name: 
-          - ntp 
+        name:
+          - ntp
           - ntpdate
         state: latest
 
@@ -57,7 +58,7 @@
       get_url:
         url: https://download.docker.com/linux/centos/docker-ce.repo
         dest: /etc/yum.repos.d/docer-ce.repo
-      become: yes       
+      become: yes
 
 
     - name: Enable Docker Edge repo
@@ -87,7 +88,7 @@
         name: docker
         state: started
         enabled: yes
-      become: yes      
+      become: yes
 
     - name: Add user tomcat to docker group
       user:

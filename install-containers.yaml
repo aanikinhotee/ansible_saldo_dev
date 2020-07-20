@@ -60,6 +60,14 @@
         src: saldo-api-logback.xml
         dest: /home/tomcat/saldo-api-logback.xml
 
+
+    - name: add saldo-api-environment.properties file
+      become_user: tomcat
+      become: yes
+      copy:
+        src: saldo-api-environment.properties
+        dest: /home/tomcat/saldo-api-environment.properties
+
     - name: Enable service tomcat, and not touch the state
       service:
         name: tomcat

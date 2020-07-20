@@ -1,5 +1,5 @@
 [all]
-10.120.1.214
+46.101.112.61
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python

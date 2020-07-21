@@ -23,6 +23,7 @@
           KEYCLOAK_PASSWORD: admin
         ports:
           - "8080:8080"
+          - "8443:8443"
         volumes:
           - "keycloak-db:/opt/jboss/keycloak/standalone/data:rw"
       vars:

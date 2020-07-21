@@ -1,0 +1,21 @@
+- hosts: all
+  remote_user: root
+  become: yes
+  tasks:
+    - name: Create a directory if it does not exist
+      file:
+        path: /opt/maven
+        state: directory
+        mode: '0755'
+
+    - name: Install maven
+      get_url:
+        url: https://downloads.apache.org/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+        dest: /opt/maven/apache-maven-3.3.9-bin.tar.gz
+
+
+    - name: Extract /opt/maven/apache-maven-3.3.9-bin.tar.gz into /opt/maven/apache-maven-3.3.9
+      unarchive:
+        src: /opt/maven/apache-maven-3.3.9-bin.tar.gz
+        dest: /opt/maven/
+        remote_src: yes

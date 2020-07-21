@@ -36,6 +36,11 @@
         url: https://downloads.apache.org/tomcat/tomcat-9/v9.0.37/bin/apache-tomcat-9.0.37.tar.gz
         dest: /home/tomcat/apache-tomcat-9.0.37.tar.gz
 
+    - name: Ansible check file exists example.
+      stat:
+        path: /home/tomcat/apache-tomcat-9.0.37
+      register: file_details
+
     - name: Extract /home/tomcat/apache-tomcat-9.0.37.tar.gz into /home/tomcat/apache-tomcat-9.0.37
       become_user: tomcat
       become: yes
@@ -43,6 +48,23 @@
         src: /home/tomcat/apache-tomcat-9.0.37.tar.gz
         dest: /home/tomcat/
         remote_src: yes
+      when: not file_details.stat.exists
+
+    - name: Clean artifact path
+      become_user: tomcat
+      become: yes
+      file:
+        state: absent
+        path: /home/tomcat/apache-tomcat-9.0.37/webapps
+      when: not file_details.stat.exists
+
+    - name: Create a directory if it does not exist
+      become_user: tomcat
+      become: yes
+      file:
+        path: /home/tomcat/apache-tomcat-9.0.37/webapps
+        state: directory
+        mode: '0755'
 
     - name: add tomcat.service file
       copy:
@@ -65,9 +87,12 @@
     - name: add saldo-api-environment.properties file
       become_user: tomcat
       become: yes
-      copy:
+      template:
         src: saldo-api-environment.properties
         dest: /home/tomcat/saldo-api-environment.properties
+        owner: tomcat
+        group: tomcat
+        mode: u=rw,g=r,o=r
 
     - name: Enable service tomcat, and not touch the state
       service:

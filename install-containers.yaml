@@ -103,3 +103,32 @@
       service:
         name: tomcat
         state: started
+
+    - name: install psql
+      yum:
+        name: https://download.postgresql.org/pub/repos/yum/12/redhat/rhel-7.8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+        state: present
+
+    - name: install postgresql
+      yum:
+        name: postgresql12
+        state: present
+
+
+    - name: copy create_empty_db.sql file
+      copy:
+        src: create_empty_db.sql
+        dest: /home/tomcat/create_empty_db.sql
+
+    - name: collect information about saldo db
+      shell: PGPASSWORD=mysecretpassword psql -h localhost -U postgres -lqt | cut -d \| -f 1 | grep -qw saldo; echo $?
+      register: dbstat
+      changed_when: false
+
+    - name: debug
+      debug:
+        var: dbstat
+
+    - name: install saldo db
+      shell: PGPASSWORD=mysecretpassword psql -h localhost -U postgres -f /home/tomcat/create_empty_db.sql
+      when: dbstat['stdout'] == "1"

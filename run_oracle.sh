@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Info is here: https://github.com/oracle/docker-images/tree/master/OracleDatabase/SingleInstance"
+
 docker run -d --name oracle_db \
 -p 1521:1521 -p 5500:5500 \
 -e ORACLE_PWD=5846cb3f650dfb9f \

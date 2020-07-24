@@ -132,3 +132,9 @@
     - name: install saldo db
       shell: PGPASSWORD=mysecretpassword psql -h localhost -U postgres -f /home/tomcat/create_empty_db.sql
       when: dbstat['stdout'] == "1"
+
+
+    - name: add run_oracle.sh file
+      copy:
+        src: run_oracle.sh
+        dest: /root/run_oracle.sh

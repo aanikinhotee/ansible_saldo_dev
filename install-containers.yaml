@@ -138,3 +138,8 @@
       copy:
         src: run_oracle.sh
         dest: /root/run_oracle.sh
+
+    - name: add run_etcd.sh file
+      copy:
+        src: run_etcd.sh
+        dest: /root/run_etcd.sh

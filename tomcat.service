@@ -12,7 +12,9 @@ Environment=CATALINA_BASE=/home/tomcat/apache-tomcat-9.0.37
 Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
 Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom \
     -Dsaldo.api.logging.config=/home/tomcat/saldo-api-logback.xml \
-    -Dsaldo.api.config.location=file:/home/tomcat/saldo-api-environment.properties'
+    -Dsaldo.api.config.location=file:/home/tomcat/saldo-api-environment.properties \
+    -Drmv.instance=10.120.1.214:8888 \
+    -Drmv.etcd.endpoint.urls=http://10.120.1.214:2379'
 
 ExecStart=/home/tomcat/apache-tomcat-9.0.37/bin/startup.sh
 ExecStop=/bin/kill -15 $MAINPID

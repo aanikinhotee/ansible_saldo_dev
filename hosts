@@ -1,5 +1,4 @@
 [all]
-46.101.112.61 keycloak_base=http://46.101.112.61:8080 app_backend=http://46.101.112.61:8888 app_base=http://46.101.112.61 secret=34ca5055-73a6-4481-a4c7-a4ae74d6d8b8
 10.120.1.214 keycloak_base=http://10.120.1.214:8080 app_backend=http://10.120.1.214:8888 app_base=https://saldo.wisercat.eu/ secret=d7c8c016-c9a4-4db0-9ea5-ba641eb67145
 
 [all:vars]

@@ -52,6 +52,12 @@
         state: latest
 
 
+    - name: install libaio
+      yum:
+        name: libaio
+        state: latest
+
+
     - name: install xauth
       yum:
         name: xauth

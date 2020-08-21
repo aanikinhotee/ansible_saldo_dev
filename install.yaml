@@ -79,6 +79,11 @@
         name: git
         state: latest
 
+    - name: Install unzip
+      yum:
+        name: unzip
+        state: latest
+
     - name: Install lvm2
       yum:
         name: lvm2

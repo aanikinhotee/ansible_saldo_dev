@@ -2,15 +2,31 @@
   remote_user: root
   become: yes
   tasks:
-    - name: add user
+    - name: add user tomcat
       become: true
       user:
         name: tomcat
+
+    - name: add user oracl
+      become: true
+      user:
+        name: oracl
 
     - name: Set up multiple authorized keys
       become: true
       authorized_key:
         user: tomcat
+        state: present
+        key: '{{ item }}'
+      with_file:
+        - anton.anikin.pub
+        - gitlab.tech.pub
+        - saldo.build.pub
+
+    - name: Set up multiple authorized keys
+      become: true
+      authorized_key:
+        user: oracl
         state: present
         key: '{{ item }}'
       with_file:
@@ -34,6 +50,13 @@
       yum:
         name: httpd
         state: latest
+
+
+    - name: install xauth
+      yum:
+        name: xauth
+        state: latest
+
 
     - name: remove firewalld
       yum:

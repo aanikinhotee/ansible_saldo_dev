@@ -22,6 +22,7 @@
         - anton.anikin.pub
         - gitlab.tech.pub
         - saldo.build.pub
+        - jaan.raamets.pub
 
     - name: Set up multiple authorized keys
       become: true
@@ -33,6 +34,7 @@
         - anton.anikin.pub
         - gitlab.tech.pub
         - saldo.build.pub
+        - jaan.raamets.pub
 
     - name: update all packages
       yum:

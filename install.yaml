@@ -53,6 +53,11 @@
         name: httpd
         state: latest
 
+    - name: install wget
+      yum:
+        name:
+          - wget
+        state: latest
 
     - name: install libaio
       yum:

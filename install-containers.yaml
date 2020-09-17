@@ -33,19 +33,19 @@
       become_user: tomcat
       become: yes
       get_url:
-        url: https://downloads.apache.org/tomcat/tomcat-9/v9.0.37/bin/apache-tomcat-9.0.37.tar.gz
-        dest: /home/tomcat/apache-tomcat-9.0.37.tar.gz
+        url: https://downloads.apache.org/tomcat/tomcat-9/v9.0.38/bin/apache-tomcat-9.0.38.tar.gz
+        dest: /home/tomcat/apache-tomcat-9.0.38.tar.gz
 
     - name: Ansible check file exists example.
       stat:
-        path: /home/tomcat/apache-tomcat-9.0.37
+        path: /home/tomcat/apache-tomcat-9.0.38
       register: file_details
 
-    - name: Extract /home/tomcat/apache-tomcat-9.0.37.tar.gz into /home/tomcat/apache-tomcat-9.0.37
+    - name: Extract /home/tomcat/apache-tomcat-9.0.38.tar.gz into /home/tomcat/apache-tomcat-9.0.38
       become_user: tomcat
       become: yes
       unarchive:
-        src: /home/tomcat/apache-tomcat-9.0.37.tar.gz
+        src: /home/tomcat/apache-tomcat-9.0.38.tar.gz
         dest: /home/tomcat/
         remote_src: yes
       when: not file_details.stat.exists
@@ -55,14 +55,14 @@
       become: yes
       file:
         state: absent
-        path: /home/tomcat/apache-tomcat-9.0.37/webapps
+        path: /home/tomcat/apache-tomcat-9.0.38/webapps
       when: not file_details.stat.exists
 
     - name: Create a directory if it does not exist
       become_user: tomcat
       become: yes
       file:
-        path: /home/tomcat/apache-tomcat-9.0.37/webapps
+        path: /home/tomcat/apache-tomcat-9.0.38/webapps
         state: directory
         mode: '0755'
 
@@ -74,7 +74,7 @@
     - name: add server.xml file
       copy:
         src: server.xml
-        dest: /home/tomcat/apache-tomcat-9.0.37/conf/server.xml
+        dest: /home/tomcat/apache-tomcat-9.0.38/conf/server.xml
 
     - name: add saldo-api-logback.xml file
       become_user: tomcat

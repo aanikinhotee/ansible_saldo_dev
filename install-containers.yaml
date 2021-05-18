@@ -21,9 +21,11 @@
         env:
           KEYCLOAK_USER: admin
           KEYCLOAK_PASSWORD: admin
+          PROXY_ADDRESS_FORWARDING: "true"
         ports:
           - "8080:8080"
           - "8443:8443"
+          - "9990:9990"
         volumes:
           - "keycloak-db:/opt/jboss/keycloak/standalone/data:rw"
       vars:

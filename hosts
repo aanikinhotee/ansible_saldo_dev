@@ -1,5 +1,6 @@
 [all]
-68.183.218.174 keycloak_base=http://68.183.218.174:8080 app_backend=http://10.120.1.214:8888 app_base=https://saldo.wisercat.eu/ secret=d7c8c016-c9a4-4db0-9ea5-ba641eb67145
+#68.183.218.174 keycloak_base=http://68.183.218.174:8080 app_backend=http://10.120.1.214:8888 app_base=https://saldo.wisercat.eu/ secret=d7c8c016-c9a4-4db0-9ea5-ba641eb67145
+10.120.1.214 keycloak_base=http://10.120.1.214:8080 app_backend=http://10.120.1.214:8888 app_base=https://saldo.wisercat.eu/ secret=d7c8c016-c9a4-4db0-9ea5-ba641eb67145
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python

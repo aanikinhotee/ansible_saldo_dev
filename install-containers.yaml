@@ -2,22 +2,23 @@
   remote_user: root
   become: yes
   tasks:
-    - name: Create db container
-      docker_container:
-        name: db_test
-        image: "postgres:latest"
-        env:
-          POSTGRES_PASSWORD: mysecretpassword
-        ports:
-          - "5432:5432"
-      vars:
-        ansible_python_interpreter: /usr/bin/python3
+#    - name: Create db container
+#      docker_container:
+#        name: db_test
+#        image: "postgres:latest"
+#        env:
+#          POSTGRES_PASSWORD: mysecretpassword
+#        ports:
+#          - "5432:5432"
+#      vars:
+#        ansible_python_interpreter: /usr/bin/python3
 
 
     - name: Create keycloak container
       docker_container:
         name: keycloak_test
-        image: "gitlab.wisercat.eu:4567/wsce/rmit_atr/keycloak-atr"
+        pull: true
+        image: "gitlab.wisercat.eu:4567/wsce/rmit_atr/keycloak-atr:kc-15"
         env:
           KEYCLOAK_USER: admin
           KEYCLOAK_PASSWORD: admin
